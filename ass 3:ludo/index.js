@@ -28,7 +28,7 @@ function Stuck() {
     if (onboard[currpawn] == 0||currPos+num>28) {
         if (DontHaveOtherFree()||currPos+num>28) {
             var badtext = document.getElementById('badtext');
-            badtext.innerText = "Unfortunatelly you stuck";
+            badtext.innerText = "Unfortunately you stuck";
             clicked = false;
             var dice = document.getElementById('dice');
             dice.style.backgroundImage = "url(photos/dice.gif)";
@@ -143,7 +143,7 @@ function randomNum() {
     }
     if (num != 6&&DontHaveOtherFree()) {
         var bad = document.getElementById('badtext');
-        bad.innerText = "Unfortunatelly you stuck";
+        bad.innerText = "Unfortunately you stuck";
         window.setTimeout(changePlayer, 1000);
         clicked = false;
     }
