@@ -135,6 +135,8 @@ function ResetPawn(victim) {
     }
 }
 function randomNum() {
+    var cleanText = document.getElementById('badtext');
+    cleanText.innerText = "";
     if (!clicked) {
         num = Math.floor((Math.random() * 6) + 1);;
         var dice = document.getElementById('dice');
@@ -149,14 +151,22 @@ function randomNum() {
     }
 }
 function testing() {
+    var clean = document.getElementById('badtext');
+    clean.innerText = "";   
     num = Number(document.getElementById("myNumber").value);
     var dice = document.getElementById('dice');
     dice.style.backgroundImage = "url(photos/" + num + ".jpg)";
     clicked = true;
-    if (num != 6&&DontHaveOtherFree()) {
+    if (((num < 6)&&(num > 0))&&DontHaveOtherFree()) {
         var bad = document.getElementById('badtext');
         bad.innerText = "Unfortunately you stuck";
         window.setTimeout(changePlayer, 1000);
+        clicked = false;
+    }
+    if ((num > 6)||(num < 0)) {
+        var excNo = document.getElementById('badtext');
+        excNo.innerText = "Unfortunately, the No. doesn't exist in Dice. Please Try Again.";   
+        dice.style.backgroundImage = "url(photos/dice.gif)";
         clicked = false;
     }
 }
