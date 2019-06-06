@@ -148,6 +148,18 @@ function randomNum() {
         clicked = false;
     }
 }
+function testing() {
+    num = Number(document.getElementById("myNumber").value);
+    var dice = document.getElementById('dice');
+    dice.style.backgroundImage = "url(photos/" + num + ".jpg)";
+    clicked = true;
+    if (num != 6&&DontHaveOtherFree()) {
+        var bad = document.getElementById('badtext');
+        bad.innerText = "Unfortunately you stuck";
+        window.setTimeout(changePlayer, 1000);
+        clicked = false;
+    }
+}
 function randomMove(Color, paw) {
     var text = document.getElementById('player');
     NumOfPaw = paw;

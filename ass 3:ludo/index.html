@@ -14,22 +14,17 @@
 <body>
     <div id="main">
     <div id="board"></div>
-<!--<button type="button" onclick="stepLeft()">Left</button>
-    <button type="button" onclick="stepRight()">Right</button>
-    <button type="button" onclick="stepUp()">Top</button>
-    <button type="button" onclick="stepDown()">Bottom</button>-->
-<!--    <button type="button"  id="red">Red</button>
-    <button type="button" id="blue">Blue</button>-->
+    <div class="check">
+    <input type="number" id="myNumber" min="1" max="6" value="" style="font-size:24px;font-weight:bold;">
 
-    <div id="dice" onclick="randomNum()" style="background-image:url(photos/dice.gif);background-size:contain; width:150px;height:150px;float:left;"></div>
-    <div class="roll" onclick="roll()" style="background: ">
+    <button onclick="testing()" style="font-size:24px;"><strong>C H E C K ! !</strong></button>
+    </div>
     
-    <!-- red pawns  start top 28 left 318-->
+    <div id="dice" onclick="randomNum()" style="background-image:url(photos/dice.gif);background-size:contain; width:150px;height:150px;float:left;"></div>
     
     <div class="pawns" id="redpawn1"    onclick="randomMove('red',1)"       style="background-color:#cc0000;top:175px;left:100px;"></div>
     <div class="pawns" id="redpawn2"    onclick="randomMove('red',2)"       style="background-color:#cc0000;top:175px;left:175px;"></div> 
 
-    <!-- blue pawns  start top 326 left 515-->
     <div class="pawns" id="bluepawn1"   onclick="randomMove('blue',1)"      style="background-color:blue;top:650px;left:1010px;"></div>
     <div class="pawns" id="bluepawn2"   onclick="randomMove('blue',2)"      style="background-color:blue;top:650px;left:1085px;"></div>
     
@@ -37,7 +32,9 @@
     <div class="useless" style="margin: 8px 0; letter-spacing:0.05em;font-size: 24px;">
     <h4 id="uselesstext1" style="display: inline;">It`s </h4><h3 id="player" style="color:red;display: inline;">red</h3><h4 id="uselesstext2" style="display: inline;">s turn</h4>
     </div>
-    <p id="badtext" style="float:left;"></p>
+    <p id="badtext" style="float:left;font-size: 24px;font-weight: bold;"></p>
+
+    
     </div>
 </body>
 </html>
