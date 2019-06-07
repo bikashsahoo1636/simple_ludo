@@ -62,7 +62,7 @@ var onboard = {
 function DontHaveOtherFree() {
     var text = document.getElementById('player');
     for (var i = 1; i <=2; i++) {
-        if (onboard[text.innerText + "pawn" + i] == 1 || positions[text.innerText + "pawn" + i]+num>=44) return false;
+        if (onboard[text.innerText + "pawn" + i] == 1 || positions[text.innerText + "pawn" + i]+num>= 28) return false;
     }
     return true;
 }
