@@ -1,5 +1,12 @@
- #main{
-            width:100%;
+        * {
+            box-sizzing:border-box;
+        }
+        body {
+           background:url(photos/7481.jpg) no-repeat ;
+           background-size:cover; 
+        }
+        #main{
+            width:100%; 
             height: 100%;
             float:left;
         }

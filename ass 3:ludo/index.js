@@ -1,4 +1,4 @@
-﻿var currPos = 0;
+var currPos = 0;
 var step = 77;
 var currcolor = "";
 var NumOfPaw = "";
@@ -149,6 +149,7 @@ function randomNum() {
         window.setTimeout(changePlayer, 1000);
         clicked = false;
     }
+    
 }
 function testing() {
     var clean = document.getElementById('badtext');
