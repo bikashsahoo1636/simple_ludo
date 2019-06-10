@@ -66,6 +66,12 @@ function DontHaveOtherFree() {
     }
     return true;
 }
+function OnlyOneIsFree() {
+    var text = document.getElementById('player');
+    if (onboard[text.innerText + "pawn" + 2] == 1) return false;
+    else if (onboard[text.innerText + "pawn" + 1] == 1) return false;
+    else return true;
+}
 function CheckForWinner() {
     if (pawnOut[currcolor] == 2) {
         var dice = document.getElementById("dice");
@@ -137,6 +143,10 @@ function ResetPawn(victim) {
 function randomNum() {
     var cleanText = document.getElementById('badtext');
     cleanText.innerText = "";
+    currcolortext = document.getElementById('player');
+    currcolor = currcolortext.innerText;
+    currpawn = currcolor + "pawn" + 1;
+    currPos = positions[currpawn];
     if (!clicked) {
         num = Math.floor((Math.random() * 6) + 1);;
         var dice = document.getElementById('dice');
@@ -148,8 +158,56 @@ function randomNum() {
         bad.innerText = "Unfortunately you stuck";
         window.setTimeout(changePlayer, 1000);
         clicked = false;
-    }
-    
+    }    
+    /*else if (OnlyOneIsFree()) {
+        if (onboard[currpawn] === 1 || num === 6) {
+            if (onboard[currpawn] === 0) {
+                var doc = document.getElementById(currpawn);
+                var curr = Number(doc.style.left.replace(/[a-z]/g, ''));
+                switch (currcolor) {
+                    case "red":
+                        doc.style.left = 327 + 'px';
+                        doc.style.top = 109 + "px";
+                        break;    
+
+                    case "blue":
+                        doc.style.left = 866 + 'px';
+                        doc.style.top = 648 + "px";
+                        break;
+
+                }
+                onboard[currpawn] = 1;
+            }
+            else {
+                switch (currcolor) {
+                    case "red":
+                        for (i = currPos; i < position + num; i++) {
+                            stepsRed[i]();
+                        }
+                        break;
+
+                    case "blue":
+                        for (i = currPos; i < position + num; i++) {
+                            stepsBlue[i]();
+                        }
+                        break;
+                }
+                positions[currpawn] = currPos;
+                var victim = HaveHover();
+                if (victim != false) {
+                    ResetPawn(victim);
+                }
+                if (currPos == 28) { pawnOut[currcolor]++; onboard[currpawn] = 0; positions[currpawn] = 0; document.getElementById(currpawn).style.visibility = "hidden"; };
+                CheckForWinner();
+                changePlayer();
+            }
+            num = 0;
+            clicked = false;
+            var dice = document.getElementById('dice');
+            dice.style.backgroundImage = "url(photos/dice.gif)";
+        }         
+        else Stuck();
+    }*/
 }
 function testing() {
     var clean = document.getElementById('badtext');
@@ -184,54 +242,56 @@ function randomMove(Color, paw) {
         if (clicked) {
             var position = currPos;
             if (text.innerText == currcolor) {
-                if (onboard[currpawn] === 1 || num === 6) {
-                    if (onboard[currpawn] === 0) {
-                        var doc = document.getElementById(currpawn);
-                        var curr = Number(doc.style.left.replace(/[a-z]/g, ''));
-                        switch (Color) {
-                            case "red":
-                                doc.style.left = 327 + 'px';
-                                doc.style.top = 109 + "px";
-                                break;    
+                //if (!OnlyOneIsFree()) {
+                    if (onboard[currpawn] === 1 || num === 6) {
+                        if (onboard[currpawn] === 0) {
+                            var doc = document.getElementById(currpawn);
+                            var curr = Number(doc.style.left.replace(/[a-z]/g, ''));
+                            switch (Color) {
+                                case "red":
+                                    doc.style.left = 327 + 'px';
+                                    doc.style.top = 109 + "px";
+                                    break;    
 
-                            case "blue":
-                                doc.style.left = 866 + 'px';
-                                doc.style.top = 648 + "px";
-                                break;
+                                case "blue":
+                                    doc.style.left = 866 + 'px';
+                                    doc.style.top = 648 + "px";
+                                    break;
 
+                            }
+                            onboard[currpawn] = 1;
                         }
-                        onboard[currpawn] = 1;
-                    }
-                    else {
-                        switch (Color) {
-                            case "red":
-                                for (i = currPos; i < position + num; i++) {
-                                    stepsRed[i]();
-                                }
-                                break;
+                        else {
+                            switch (Color) {
+                                case "red":
+                                    for (i = currPos; i < position + num; i++) {
+                                        stepsRed[i]();
+                                    }
+                                    break;
 
-                            case "blue":
-                                for (i = currPos; i < position + num; i++) {
-                                    stepsBlue[i]();
-                                }
-                                break;
+                                case "blue":
+                                    for (i = currPos; i < position + num; i++) {
+                                        stepsBlue[i]();
+                                    }
+                                    break;
+                            }
+                            positions[currpawn] = currPos;
+                            var victim = HaveHover();
+                            if (victim != false) {
+                                ResetPawn(victim);
+                            }
+                            if (currPos == 28) { pawnOut[currcolor]++; onboard[currpawn] = 0; positions[currpawn] = 0; document.getElementById(currpawn).style.visibility = "hidden"; };
+                            CheckForWinner();
+                            changePlayer();
                         }
-                        positions[currpawn] = currPos;
-                        var victim = HaveHover();
-                        if (victim != false) {
-                            ResetPawn(victim);
-                        }
-                        if (currPos == 28) { pawnOut[currcolor]++; onboard[currpawn] = 0; positions[currpawn] = 0; document.getElementById(currpawn).style.visibility = "hidden"; };
-                        CheckForWinner();
-                        changePlayer();
-                    }
-                    num = 0;
-                    clicked = false;
-                    var dice = document.getElementById('dice');
-                    dice.style.backgroundImage = "url(photos/dice.gif)";
-                }
-                else Stuck();
-            }
+                        num = 0;
+                        clicked = false;
+                        var dice = document.getElementById('dice');
+                        dice.style.backgroundImage = "url(photos/dice.gif)";
+                    }    
+                    else Stuck();
+                }    
+            //}
         }
     }
 }
