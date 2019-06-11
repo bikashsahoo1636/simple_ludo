@@ -9,6 +9,7 @@
             width:100%; 
             height: 100%;
             float:left;
+
         }
         .pawns{
             width:30px;
@@ -24,7 +25,6 @@
             float:left;
             margin-top:8px;
             margin-left: 8px;
-            margin-right: 8px;
         }
         #uselesstext1{
             padding-left:10px;
@@ -34,6 +34,7 @@
         footer{
             font-size:larger;
             color:darkred;
+            
 
         }
         .check {

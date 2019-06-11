@@ -7,8 +7,6 @@ var clicked = false;
 var currpawn = "";
 var allcolor = ["red", "blue"];
 var pawnOut = {red:0,blue:0}
-var countRed = 0;
-var countBlue = 0;
 function HaveHover() {
     var count = 0;
     var toKill = "";
@@ -70,9 +68,8 @@ function DontHaveOtherFree() {
 }
 function OnlyOneIsFree() {
     var text = document.getElementById('player');
-    if (onboard[text.innerText + "pawn" + 2] == 0) return true;
-    else if (onboard[text.innerText + "pawn" + 1] == 0) return true;
-    else return false;
+    if (onboard[text.innerText + "pawn" + 2] == 1) return false;
+    else return true;
 }
 function CheckForWinner() {
     if (pawnOut[currcolor] == 2) {
@@ -145,9 +142,6 @@ function ResetPawn(victim) {
 function randomNum() {
     var cleanText = document.getElementById('badtext');
     cleanText.innerText = "";
-    currcolortext = document.getElementById('player');
-    currcolor = currcolortext.innerText;    
-
     if (!clicked) {
         num = Math.floor((Math.random() * 6) + 1);;
         var dice = document.getElementById('dice');
@@ -160,112 +154,11 @@ function randomNum() {
         window.setTimeout(changePlayer, 1000);
         clicked = false;
     }
-    if (DontHaveOtherFree()) {
-        currpawn = currcolor + "pawn" + 1;
-    }
-    else if (onboard[currcolor + "pawn" + 1] == 0) {
-        currpawn = currcolor + "pawn" + 2;
-    }
-    else {
-        currpawn = currcolor + "pawn" + 1;
-    }
     
-    currPos = positions[currpawn];    
-    
-    if (num + currPos > 28) {
-        Stuck();
-    }
-    else {
-
-        if (clicked) {
-            var position = currPos;
-            if (currcolortext.innerText == currcolor) {
-                if ((num == 6 && DontHaveOtherFree()) || (OnlyOneIsFree() && num != 6)) {
-                    if (onboard[currpawn] === 1 || num === 6) {
-                        if (onboard[currpawn] === 0) {
-                            var doc = document.getElementById(currpawn);
-                            var curr = Number(doc.style.left.replace(/[a-z]/g, ''));
-                            switch (currcolor) {
-                                case "red":
-                                    doc.style.left = 327 + 'px';
-                                    doc.style.top = 109 + "px";
-                                    break;    
-
-                                case "blue":
-                                    doc.style.left = 866 + 'px';
-                                    doc.style.top = 648 + "px";
-                                    break;
-
-                            }
-                            onboard[currpawn] = 1;
-                            positions[currpawn] = currPos;
-                            var victim = HaveHover();
-                            if (victim != false) {
-                                ResetPawn(victim);
-                            }
-                        }
-                        else {
-                            switch (currcolor) {
-                                case "red":
-                                    for (i = currPos; i < position + num; i++) {
-                                        stepsRed[i]();
-                                    }
-                                    break;
-
-                                case "blue":
-                                    for (i = currPos; i < position + num; i++) {
-                                        stepsBlue[i]();
-                                    }
-                                    break;
-                            }
-                            positions[currpawn] = currPos;
-                            var victim = HaveHover();
-                            if (victim != false) {
-                                ResetPawn(victim);
-                            }
-                            if (currPos == 28) { pawnOut[currcolor]++; onboard[currpawn] = 0; positions[currpawn] = 0; document.getElementById(currpawn).style.visibility = "hidden"; };
-                            CheckForWinner();
-                            window.setTimeout(changePlayer, 1000);
-                        }
-                        num = 0;
-                        clicked = false;
-                    }    
-                    else Stuck();
-                }    
-            }
-        }
-    }
-    /*if (positions[currcolor + "pawn" + 1] == positions[currcolor + "pawn" + 2]) {
-        switch (currcolor) {
-            case "red":
-            for (i = currPos; i < position + num; i++) {
-                stepsRed[i]();
-            }
-            break;
-
-            case "blue":
-            for (i = currPos; i < position + num; i++) {
-                stepsBlue[i]();
-            }
-            break;
-        }
-        positions[currpawn] = currPos;
-        var victim = HaveHover();
-        if (victim != false) {
-            ResetPawn(victim);
-        }
-        if (currPos == 28) { pawnOut[currcolor]++; onboard[currpawn] = 0; positions[currpawn] = 0; document.getElementById(currpawn).style.visibility = "hidden"; };
-        CheckForWinner();
-        window.setTimeout(changePlayer, 1000);
-        num = 0;
-    }*/
 }
 function testing() {
     var clean = document.getElementById('badtext');
-    clean.innerText = "";
-    currcolortext = document.getElementById('player');
-    currcolor = currcolortext.innerText;
-
+    clean.innerText = "";   
     num = Number(document.getElementById("myNumber").value);
     var dice = document.getElementById('dice');
     dice.style.backgroundImage = "url(photos/" + num + ".jpg)";
@@ -282,104 +175,6 @@ function testing() {
         dice.style.backgroundImage = "url(photos/dice.gif)";
         clicked = false;
     }
-    if (DontHaveOtherFree()) {
-        currpawn = currcolor + "pawn" + 1;
-    }
-    else if (onboard[currcolor + "pawn" + 1] == 0) {
-        currpawn = currcolor + "pawn" + 2;
-    }
-    else {
-        currpawn = currcolor + "pawn" + 1;
-    }
-    
-    currPos = positions[currpawn];    
-    
-    if (num + currPos > 28) {
-        Stuck();
-    }
-    else {
-        if (clicked) {
-            var position = currPos;
-            if (currcolortext.innerText == currcolor) {
-                if ((num == 6 && DontHaveOtherFree()) || (OnlyOneIsFree() && num != 6)) {
-                    if (onboard[currpawn] === 1 || num === 6) {
-                        if (onboard[currpawn] === 0) {
-                            var doc = document.getElementById(currpawn);
-                            var curr = Number(doc.style.left.replace(/[a-z]/g, ''));
-                            switch (currcolor) {
-                                case "red":
-                                    doc.style.left = 327 + 'px';
-                                    doc.style.top = 109 + "px";
-                                    break;    
-
-                                case "blue":
-                                    doc.style.left = 866 + 'px';
-                                    doc.style.top = 648 + "px";
-                                    break;
-
-                            }
-                            onboard[currpawn] = 1;
-                            positions[currpawn] = currPos;
-                            var victim = HaveHover();
-                            if (victim != false) {
-                                ResetPawn(victim);
-                            }
-                        }
-                        else {
-                            switch (currcolor) {
-                                case "red":
-                                    for (i = currPos; i < position + num; i++) {
-                                        stepsRed[i]();
-                                    }
-                                    break;
-
-                                case "blue":
-                                    for (i = currPos; i < position + num; i++) {
-                                        stepsBlue[i]();
-                                    }
-                                    break;
-                            }
-                            positions[currpawn] = currPos;
-                            var victim = HaveHover();
-                            if (victim != false) {
-                                ResetPawn(victim);
-                            }
-                            if (currPos == 28) { pawnOut[currcolor]++; onboard[currpawn] = 0; positions[currpawn] = 0; document.getElementById(currpawn).style.visibility = "hidden"; };
-                            CheckForWinner();
-                            window.setTimeout(changePlayer, 1000);
-                        }
-                        num = 0;
-                        clicked = false;
-                    }    
-                    else Stuck();
-                }    
-            }
-        }
-    }
-    /*if (positions[currcolor + "pawn" + 1] == positions[currcolor + "pawn" + 2]) {
-        switch (currcolor) {
-            case "red":
-            for (i = currPos; i < position + num; i++) {
-                stepsRed[i]();
-            }
-            break;
-
-            case "blue":
-            for (i = currPos; i < position + num; i++) {
-                stepsBlue[i]();
-            }
-            break;
-        }
-        positions[currpawn] = currPos;
-        var victim = HaveHover();
-        if (victim != false) {
-            ResetPawn(victim);
-        }
-        if (currPos == 28) { pawnOut[currcolor]++; onboard[currpawn] = 0; positions[currpawn] = 0; document.getElementById(currpawn).style.visibility = "hidden"; };
-        CheckForWinner();
-        window.setTimeout(changePlayer, 1000);
-        num = 0;
-    }*/
 }
 function randomMove(Color, paw) {
     var text = document.getElementById('player');
@@ -394,60 +189,53 @@ function randomMove(Color, paw) {
         if (clicked) {
             var position = currPos;
             if (text.innerText == currcolor) {
-                //if ((num == 6 && OnlyOneIsFree()) || (!OnlyOneIsFree()) ) {
-                    if (onboard[currpawn] === 1 || num === 6) {
-                        if (onboard[currpawn] === 0) {
-                            var doc = document.getElementById(currpawn);
-                            var curr = Number(doc.style.left.replace(/[a-z]/g, ''));
-                            switch (Color) {
-                                case "red":
-                                    doc.style.left = 327 + 'px';
-                                    doc.style.top = 109 + "px";
-                                    break;    
+                if (onboard[currpawn] === 1 || num === 6) {
+                    if (onboard[currpawn] === 0) {
+                        var doc = document.getElementById(currpawn);
+                        var curr = Number(doc.style.left.replace(/[a-z]/g, ''));
+                        switch (Color) {
+                            case "red":
+                                doc.style.left = 327 + 'px';
+                                doc.style.top = 109 + "px";
+                                break;    
 
-                                case "blue":
-                                    doc.style.left = 866 + 'px';
-                                    doc.style.top = 648 + "px";
-                                    break;
+                            case "blue":
+                                doc.style.left = 866 + 'px';
+                                doc.style.top = 648 + "px";
+                                break;
 
-                            }
-                            onboard[currpawn] = 1;
-                            positions[currpawn] = currPos;
-                            var victim = HaveHover();
-                            if (victim != false) {
-                                ResetPawn(victim);
-                            }
                         }
-                        else {
-                            switch (Color) {
-                                case "red":
-                                    for (i = currPos; i < position + num; i++) {
-                                        stepsRed[i]();
-                                    }
-                                    break;
+                        onboard[currpawn] = 1;
+                    }
+                    else {
+                        switch (Color) {
+                            case "red":
+                                for (i = currPos; i < position + num; i++) {
+                                    stepsRed[i]();
+                                }
+                                break;
 
-                                case "blue":
-                                    for (i = currPos; i < position + num; i++) {
-                                        stepsBlue[i]();
-                                    }
-                                    break;
-                            }
-                            positions[currpawn] = currPos;
-                            var victim = HaveHover();
-                            if (victim != false) {
-                                ResetPawn(victim);
-                            }
-                            if (currPos == 28) { pawnOut[currcolor]++; onboard[currpawn] = 0; positions[currpawn] = 0; document.getElementById(currpawn).style.visibility = "hidden"; };
-                            CheckForWinner();
-                            changePlayer();
+                            case "blue":
+                                for (i = currPos; i < position + num; i++) {
+                                    stepsBlue[i]();
+                                }
+                                break;
                         }
-                        num = 0;
-                        clicked = false;
-                        var dice = document.getElementById('dice');
-                        dice.style.backgroundImage = "url(photos/dice.gif)";
-                    }    
-                    else Stuck();
-                //}    
+                        positions[currpawn] = currPos;
+                        var victim = HaveHover();
+                        if (victim != false) {
+                            ResetPawn(victim);
+                        }
+                        if (currPos == 28) { pawnOut[currcolor]++; onboard[currpawn] = 0; positions[currpawn] = 0; document.getElementById(currpawn).style.visibility = "hidden"; };
+                        CheckForWinner();
+                        changePlayer();
+                    }
+                    num = 0;
+                    clicked = false;
+                    var dice = document.getElementById('dice');
+                    dice.style.backgroundImage = "url(photos/dice.gif)";
+                }
+                else Stuck();
             }
         }
     }
