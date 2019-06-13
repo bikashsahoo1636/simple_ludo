@@ -206,6 +206,11 @@ function randomMove(Color, paw) {
 
                         }
                         onboard[currpawn] = 1;
+                        positions[currpawn] = currPos;
+                        var victim = HaveHover();
+                        if (victim != false) {
+                            ResetPawn(victim);
+                        }
                     }
                     else {
                         switch (Color) {
